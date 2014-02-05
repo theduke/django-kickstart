@@ -292,7 +292,7 @@ SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Bower settings.
-BOWER_COMPONENTS_ROOT = os.path.join(PUBLIC_DIR, 'static', 'components')
+BOWER_COMPONENTS_ROOT = os.path.join(PUBLIC_DIR, 'static')
 BOWER_INSTALLED_APPS = (
     'jquery',
     'modernizr',
@@ -304,7 +304,7 @@ BOWER_INSTALLED_APPS = (
     # min/max width media queries for IE 6-8.
     'respond',
     # CSS3 styles for IE 6-8.
-    'pie',
+    'bower-pie',
     # HTML5 tag support for IE 6-8.
     'html5shiv',
 )

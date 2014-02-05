@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 
     # Allauth account urls.
     (r'^accounts/', include('allauth.urls')),
+
+    url(r'^$', '{{ project_name }}.views.home', name='home'),
 )
 
 ## In DEBUG mode, serve media files through Django.

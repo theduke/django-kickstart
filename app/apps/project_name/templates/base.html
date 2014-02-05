@@ -24,7 +24,7 @@
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="{{ STATIC_URL }}js/lib/modernizr-dev.js"></script>
+       <script type="text/javascript" src='{% static 'modernizr/modernizr.js' %}'></script>
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
@@ -34,9 +34,9 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
 
-  <div class="page">
+  <div id="page">
     <header>
-
+      HEADER STUB!
     </header>
 
     <div id="content-wrap" class="container">
@@ -60,15 +60,21 @@
     <footer>
       <div class="container">
         &copy; {% now "Y" %} |
-        {% link 'impressum' 'Impressum' %}
-        {% link 'contact' 'Kontakt' %}
       </div>
     </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
-  <script src="{{ STATIC_URL }}js/lib/jquery-1.10.2.min.js"></script>
-  <script src="{{ STATIC_URL }}bootstrap.js"></script>
-  <script src="{{ STATIC_URL }}js/{{ project_name }}.js"></script>
+  <script type="text/javascript" src='{% static 'jquery/jquery.js' %}'></script>
+  <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+  <script src="{{ STATIC_URL }}js/base.js"></script>
+
+<!-- IE polyfill fallbacks -->
+<!--[if gt IE 9]><!-->
+<script type="text/javascript" src='{% static 'html5shiv/dist/html5shiv.js' %}'></script>
+<script type="text/javascript" src='{% static 'respond/src/respond.js' %}'></script>
+<script type="text/javascript" src='{% static 'selectivizr/selectivizr.js' %}'></script>
+ <!--<![endif]-->
+
   <!-- end scripts -->
 
   {% block js_bottom %}{% endblock %}

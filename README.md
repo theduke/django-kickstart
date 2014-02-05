@@ -13,6 +13,7 @@ Steps:
 
 1) Start the new project.
 django-admin.py startproject --template="" --extension="py,html,gitignore" --domain="YOURDOMAIN.COM" PROJECTNAME
+django-admin.py startproject --template="/home/theduke/Coding/projects/django-kickstart" --extension="py,html,gitignore"
 
 2) Create virtualenv.
 
@@ -27,6 +28,10 @@ virtualenv pyenv
 3) Install requirements.
 
 pip install -r app/requirements/development.txt
+
+3) Create local settings file.
+
+ln -s app/apps/{{ project_name }}/settings/settings-dev.py app/apps/{{ project_name }}/settings/local.py
 
 4) Create sqlite database for development.
 

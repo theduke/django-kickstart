@@ -26,7 +26,7 @@ TEMPLATE_DEBUG = False
 # People who get code error notifications.
 # In the format (('Full Name', 'email@example.com'), ('Full Name', 'anotheremail@example.com'))
 ADMINS = (
-    ('Admin', 'admin@{{ domain }}')
+    #('Admin', 'admin@DOMAIN.com')
 )
 
 # Tuple of IP addresses, as strings, that:
@@ -64,7 +64,7 @@ USE_L10N = False
 MANAGERS = ADMINS
 
 # Email address that error messages come from.
-SERVER_EMAIL = 'admin@{{ domain }}'
+#SERVER_EMAIL = 'admin@DOMAIN.com'
 
 # Database connection info. If left empty, will default to the dummy backend.
 DATABASES = {}
@@ -117,7 +117,7 @@ INSTALLED_APPS = (
 
     # Django bower integration.
     # https://github.com/nvbn/django-bower
-    'django-bower',
+    'djangobower',
 
     # DJANGO CORE apps.
     'django.contrib.admin',
@@ -167,7 +167,7 @@ TEMPLATE_STRING_IF_INVALID = ''
 
 # Default email address to use for various automated correspondence from
 # the site managers.
-DEFAULT_FROM_EMAIL = 'no-reply@{{ domain }}'
+#DEFAULT_FROM_EMAIL = 'no-reply@DOMAIN.com'
 
 # Whether to append trailing slashes to URLs.
 APPEND_SLASH = False
@@ -295,9 +295,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 BOWER_COMPONENTS_ROOT = os.path.join(PUBLIC_DIR, 'static', 'components')
 BOWER_INSTALLED_APPS = (
     'jquery',
-
-    # Normalize css styles.
-    'normalize-css',
+    'modernizr',
 
     # POLYFILLS: javascript fallback solutions for older browsers.
 

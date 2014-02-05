@@ -1,4 +1,4 @@
-{% load helpers %}
+{% load static %}
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -16,9 +16,7 @@
   <meta name="description" content="{% block meta_description %}{% endblock %}">
   <meta name="author" content="{% block meta_author %}{% endblock %}">
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap-303/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap-303/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css">
   {% block css %}{% endblock %}
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -36,42 +34,41 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
   <![endif]-->
 
-  <header>
-      {% include 'base/menu.html' %}
-  </header>
+  <div class="page">
+    <header>
 
-  <div id="content-wrap" class="container">
-    {% block content_wrap %}
-    <h2>{% block page_title %}{% if page_title %}{{ page_title }}{% endif %}{% endblock %}</h2>
+    </header>
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <div id="content-wrap" class="container">
+      {% block content_wrap %}
+      <h2>{% block page_title %}{% if page_title %}{{ page_title }}{% endif %}{% endblock %}</h2>
 
-    <div id="content" role="main">
-      {% block content %}{% endblock %}
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+
+      <div id="content" role="main">
+        {% block content %}{% endblock %}
+      </div>
+      {% endblock %}
     </div>
-    {% endblock %}
-  </div>
 
-  <footer>
-    <div class="container">
-      &copy; {% now "Y" %} |
-      {% link 'impressum' 'Impressum' %}
-      {% link 'contact' 'Kontakt' %}
-    </div>
-  </footer>
+    <footer>
+      <div class="container">
+        &copy; {% now "Y" %} |
+        {% link 'impressum' 'Impressum' %}
+        {% link 'contact' 'Kontakt' %}
+      </div>
+    </footer>
 
   <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- scripts concatenated and minified via django-compressor -->
   <script src="{{ STATIC_URL }}js/lib/jquery-1.10.2.min.js"></script>
-  <script src="{{ STATIC_URL }}bootstrap-303/js/bootstrap.min.js"></script>
-  <script src="{{ STATIC_URL }}js/base.js"></script>
+  <script src="{{ STATIC_URL }}bootstrap.js"></script>
+  <script src="{{ STATIC_URL }}js/{{ project_name }}.js"></script>
   <!-- end scripts -->
 
   {% block js_bottom %}{% endblock %}

@@ -35,3 +35,12 @@ app/manage.py migrate
 
 
 ) Start building your awesome site.
+
+Updating bootstrap-sass
+-----------------------
+
+After updating bootstrap-sass, you need to copy the javascript and font assets.
+
+cd to root (dir with this readme file in it)
+cp -r $(bundle show bootstrap-sass)/vendor/assets/fonts/* app/apps/{{ project_name }}/static/fonts/
+cp -r $(bundle show bootstrap-sass)/vendor/assets/javascripts/* app/apps/{{ project_name }}/static/js/

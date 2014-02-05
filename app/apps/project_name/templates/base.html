@@ -1,0 +1,80 @@
+{% load helpers %}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <!-- Set newest rendering mode on IE. More info: h5bp.com/i/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <!-- Mobile viewport optimized: h5bp.com/viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block head_title %}{{ _("{{ project_name }}") }}{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}{% endblock %}">
+  <meta name="author" content="{% block meta_author %}{% endblock %}">
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap-303/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap-303/css/bootstrap-theme.min.css">
+  {% block css %}{% endblock %}
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except this Modernizr build.
+       Modernizr enables HTML5 elements & feature detects for optimal performance.
+       Create your own custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="{{ STATIC_URL }}js/lib/modernizr-dev.js"></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% block body %}
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+  <![endif]-->
+
+  <header>
+      {% include 'base/menu.html' %}
+  </header>
+
+  <div id="content-wrap" class="container">
+    {% block content_wrap %}
+    <h2>{% block page_title %}{% if page_title %}{{ page_title }}{% endif %}{% endblock %}</h2>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div id="content" role="main">
+      {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+  </div>
+
+  <footer>
+    <div class="container">
+      &copy; {% now "Y" %} |
+      {% link 'impressum' 'Impressum' %}
+      {% link 'contact' 'Kontakt' %}
+    </div>
+  </footer>
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- scripts concatenated and minified via django-compressor -->
+  <script src="{{ STATIC_URL }}js/lib/jquery-1.10.2.min.js"></script>
+  <script src="{{ STATIC_URL }}bootstrap-303/js/bootstrap.min.js"></script>
+  <script src="{{ STATIC_URL }}js/base.js"></script>
+  <!-- end scripts -->
+
+  {% block js_bottom %}{% endblock %}
+{% endblock %}
+</body>
+</html>

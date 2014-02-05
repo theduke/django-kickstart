@@ -1,0 +1,4 @@
+# All packages that need to be compiled.
+
+# for bcrypt passwords
+# py-bcrypt

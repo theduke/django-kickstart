@@ -1,0 +1,27 @@
+# Load compiled requirements.
+-r compiled.txt
+
+# Django.
+Django>=1.6
+
+# Django apps.
+
+# Bleach for sanitizing text
+# https://github.com/jsocol/bleach
+bleach
+
+# Database migrations.
+# http://south.aeracode.org/
+South
+
+# Debug toolbar.
+# https://github.com/django-debug-toolbar/django-debug-toolbar
+django-debug-toolbar
+
+# User registration, authentication.
+# https://github.com/pennersr/django-allauth
+django-allauth
+
+# Form helpers.
+# https://github.com/maraujop/django-crispy-forms
+django-crispy-forms

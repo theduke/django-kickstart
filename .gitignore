@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Ignore pyenv.
+pyenv
+!pyenv/.gitkeep
+
+# Ignore sass cache.
+.sass-cache
+
+# Django specific.
+
+# Ignore sqlite db directory, since those are only used in development.
+data/db/*
+!data/db/.gitkeep
+
+# Ignore local settings file.
+apps/{{ project_name }}/settings/local.py

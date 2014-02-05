@@ -13,7 +13,7 @@ Steps:
 
 1) Start the new project.
 django-admin.py startproject --template="" --extension="py,html,gitignore" --domain="YOURDOMAIN.COM" PROJECTNAME
-django-admin.py startproject --template="/home/theduke/Coding/projects/django-kickstart" --extension="py,html,gitignore"
+django-admin.py startproject --template="/home/theduke/Coding/projects/django-kickstart" --extension="py,html,gitignore,md,txt"
 
 2) Create virtualenv.
 

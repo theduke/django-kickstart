@@ -8,6 +8,17 @@ going right away, and saves your precious time by automating tedious tasks.
 The template used provides a setup based on current best practices, and makes
 starting a new project a breeze.
 
+Django-kickstart is under the BSD (3-clause) license.
+
+Quickstart:
+-----------
+
+`pip install django-kickstart`
+`django-kickstart mynewproject [--domain="mynewdomain.com"]`
+
+(type `django-kickstart -h` for all options)
+
+
 Features:
 --------
 
@@ -26,14 +37,12 @@ Features:
 * Auto-create a git repo and do an intial commit.
 
 
-Quickstart:
------------
+Authors:
+--------
 
-`pip install django-kickstart`
-`django-kickstart mynewproject [--domain="mynewdomain.com"]`
+Suggestions and contributions are very welcome!
 
-(type `django-kickstart -h` for all options)
-
+* Christoph Herzog - http://theduke.at - chris@theduke.at
 
 About:
 ------

@@ -1,2 +1,2 @@
 include README.md LICENSE.txt CHANGELOG.txt
-recursive-include template *
+recursive-include django_kickstart/template *

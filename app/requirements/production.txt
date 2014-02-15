@@ -18,6 +18,10 @@ South
 # https://github.com/django-debug-toolbar/django-debug-toolbar
 django-debug-toolbar
 
+# Asset management.
+django-pipeline
+yuicompressor
+
 # User registration, authentication.
 # https://github.com/pennersr/django-allauth
 django-allauth

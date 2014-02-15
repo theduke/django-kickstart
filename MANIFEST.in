@@ -1,0 +1,2 @@
+include README.md LICENSE.txt CHANGELOG.txt
+recursive-include template *

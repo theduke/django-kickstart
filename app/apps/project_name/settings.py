@@ -8,13 +8,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+import os
+
 PROJECT_NAME = "{{ project_name }}"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+# The virtual environment path. This is used in wsgi.py to put the virtual env
+# on the PYTHONPATH automatically.
+VIRTENV_DIR = os.path.join(ROOT_DIR, 'pyenv')
+BASE_DIR = os.path.join(ROOT_DIR, 'app')
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
+
+ENV = os.environ.get('ENV', 'production')
 
 ####################
 # CORE             #
@@ -95,6 +102,9 @@ INSTALLED_APPS = (
     '{{ project_name }}',
 
     # CONTRIB apps.
+
+    # Asset manager
+    'pipeline',
 
     # django-allauth
     'allauth',
@@ -190,8 +200,7 @@ IGNORABLE_404_URLS = ()
 # SET IN local.py!!!
 #
 # A secret key for this particular Django installation. Used in secret-key
-# hashing algorithms. Set this in your settings, or Django will complain
-# loudly.
+# hashing algorithms. See below in section "Environment specific".
 #SECRET_KEY = ''
 
 # Default module to use for urls.
@@ -308,3 +317,58 @@ BOWER_INSTALLED_APPS = (
     # HTML5 tag support for IE 6-8.
     'html5shiv',
 )
+
+# pipeline asset manager.
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
+
+PIPELINE_CSS = {
+    'base': {
+        'source_filenames': (
+        ),
+        'output_filename': '',
+        'extra_content': (),
+    }
+}
+
+PIPELINE_JS = {
+
+}
+
+
+########################
+# ENVIRONMENT SPECIFIC #
+########################
+
+# Many environment settings, like the database URL and the SECRET_KEY should
+# be set with environment variables, and not in the code.
+# Some things, like added enabled applications can be configured here though.
+# The environment will be set by the ENV environment variable, and defaults
+# to production.
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+DATABASES['default'] = {
+    'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.mysql'),
+    'NAME': os.environ.get('DB_NAME')
+}
+
+# Default settings for development, so you can get started with coding right
+# away.
+if ENV == 'dev':
+    # Set default sqlite database for development.
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(DATA_DIR, 'db', 'db.sqlite3'),
+    }
+
+    # Default secret_key for dev.
+    SECRET_KEY = '{{ secret_key }}'
+
+    # To extend any settings from settings/base.py here's an example:
+    INSTALLED_APPS = INSTALLED_APPS + ()
+
+    DEBUG = TEMPLATE_DEBUG = True
+    TEMPLATE_STRING_IF_INVALID = '<VAR_NONEXISTANT>'

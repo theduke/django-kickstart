@@ -18,7 +18,7 @@ setup(
         ]
     },
     install_requires = [
-        'Django',
+        'Django >= 1.6',
         'virtualenv',
     ],
     license = 'BSD License',

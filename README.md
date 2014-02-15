@@ -1,50 +1,145 @@
 DJANGO-KICKSTART
 ================
 
-This project template helps you to kickstart your new django project,
+This tool helps you to kickstart your new django project,
 by providing a better, more comprehensive setup that allows you to get
-going right away.
+going right away, and saves your precious time by automating tedious tasks.
+
+The template used provides a setup based on current best practices, and makes
+starting a new project a breeze.
+
+Features:
+--------
+
+(for more details check About section)
+
+* SASS + Compass
+* Twitter Bootstrap
+* jQuery + Modernizr
+* IE Polyfills (for css3, media queries, html5 tags)
+
+* Bower with django-bower for frontend package management
+* django-pipeline for asset management
+* Good directory structure
+* Django setup with environment variables
+
+* Auto-create a git repo and do an intial commit.
 
 
-How to use:
+Quickstart:
 -----------
 
-Steps:
+`pip install django-kickstart`
+`django-kickstart mynewproject [--domain="mynewdomain.com"]`
 
-1) Start the new project.
-django-admin.py startproject --template="" --extension="py,html,gitignore" --domain="YOURDOMAIN.COM" PROJECTNAME
-django-admin.py startproject --template="/home/theduke/Coding/projects/django-kickstart" --extension="py,html,gitignore,md,txt"
-
-2) Create virtualenv.
-
-cd PROJECT
-# Remove stub pyenv file.
-rm -r pyenv
-# Create virtualenv with name pyenv.
-virtualenv pyenv
-# Activate the new virtualenv.
-. pyenv/bin/activate
-
-3) Install requirements.
-
-pip install -r app/requirements/development.txt
-
-3) Create local settings file.
-
-ln -s app/apps/{{ project_name }}/settings/settings-dev.py app/apps/{{ project_name }}/settings/local.py
-
-4) Create sqlite database for development.
-
-app/manage.py syncdb
-app/manage.py migrate
+(type `django-kickstart -h` for all options)
 
 
-) Start building your awesome site.
+About:
+------
+
+*  Modern and advanced CSS development with a setup for SASS, Compass, and
+   optionally Bootstrap (the Bootstrap SASS port).
+   Compass will require a setup of ruby and the gems specified in the GEMFILE
+   of the newly created project, but if you don't want to use SASS, you
+   can just delete the directory and use regular CSS without problems.
+
+   (http://sass-lang.com, http://compass-style.org, https://github.com/twbs/bootstrap-sass)
+
+* Out of the box setup of jQuery and modernizr AND important polyfills,
+   that provide fallback solutions for CSS3 selectors, styling, media queries,
+   and html5 tags. (Namely: selectivizr, respond, pie and html5shiv)
+
+* (Frontend) package management with Bower and django-bower.
+   (http://bower.io, https://github.com/nvbn/django-bower)
+
+   The packages are specified in settings.py by BOWER_INSTALLED_APPS and
+   downloaded/updated with ./manage.py bower_install
+
+* CSS and JS management with compression and merging by django-pipeline.
+   (https://django-pipeline.readthedocs.org/‎)
+
+* A good base.html template
+
+* A sane way to manage settings:
+   There is a base settings.py file, all locally relevant settings are
+   configured with ENVIRONMENT variables.
+
+   For easy development, you can just do export ENV=dev to get preconfigured
+   development settings.
+
+   To check all available env variables, check settings.py comments in the
+   first few lines, which provide a list.
+
+* Stubs for custom management commands (./manage.py commands) and
+   templatetag libraries that you can just copy and paste.
+
+* A custom public/ directory that contains static and media directories and is
+   the only one that's accessible publicly.
+
+* A good seperation of requirements, with a requirements.txt file and
+   custom files for the different environments.
+
+* Sample configuration files for other applications, like an Apache2 virtual
+   host.
+
+
+Behind the scenes:
+------------------
+
+The tool goes through these steps to set up the new project.
+
+1. Start the new project.
+
+> django-admin.py startproject --template="https://github.com/theduke/django-kickstart/archive/master.zip" --extension="py,gitignore,txt,md,conf" PROJECTNAME
+
+2. Create virtualenv.
+
+> cd PROJECT
+
+Remove stub pyenv file:
+> rm -r pyenv
+
+Create virtualenv with name pyenv:
+> virtualenv pyenv
+
+Activate the new virtualenv:
+> . pyenv/bin/activate
+
+3. Install requirements.
+
+> pip install -r app/requirements/development.txt
+
+4. Several settings are configured with environment variables.
+   To make it straight-forward for development, things are preconfigured
+   for the dev environment. To activate it, just run:
+
+   > export ENV=dev
+
+
+5. Create sqlite database for development.
+
+> app/manage.py syncdb
+> app/manage.py migrate
+
+6. Fetch bower packages.
+
+app/manage.py bower_install
+
+7. Set up a git repo
+
+> git init
+> git add .
+> git commit -m "Initial commit"
+
+7. Start building your awesome site.
+
 
 Updating bootstrap-sass
 -----------------------
 
-After updating bootstrap-sass, you need to copy the javascript and font assets.
+After updating the bootstrap-sass GEM, you need to copy the
+javascript and font assets.
 
 cd to root (dir with this readme file in it)
 cp -r $(bundle show bootstrap-sass)/vendor/assets/fonts/* app/apps/{{ project_name }}/static/fonts/

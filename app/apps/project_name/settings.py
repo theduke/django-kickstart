@@ -6,6 +6,36 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
+
+
+List of environment variables available:
+
+ENV - the active environment
+
+DEBUG - 1 or 0
+TEMPLATE_DEBUG - 1 or 0
+
+PUBLIC_DIR - the directory that holds publicly accessible files,
+             expected subdirs are "media" and "static"
+             if you want another setup, manually alter MEDIA_ROOT and STATIC_ROOT
+VIRTENV_DIR - the root directory of the virtual env used
+
+SECRET_KEY - the secret key
+DB_ENGINE - the DB engine for the default DB
+DB_NAME - the DB name for the default DB
+
+ADMINS - the site admins, specify like this: ADMINS="admin1,admin 1@domain.com;admin 2,admin2@domain.com"
+                          (seperate admins with ; and name from email with ,)
+
+INTERNAL_IPS - separate by SPACE, like: INTERNAL_IPS="127.0.0.1 123.123.123.123"
+
+EMAIL_BACKEND
+EMAIL_HOST
+EMAIL_PORT
+EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS
+
 """
 
 import os
@@ -13,13 +43,13 @@ import os
 PROJECT_NAME = "{{ project_name }}"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 # The virtual environment path. This is used in wsgi.py to put the virtual env
 # on the PYTHONPATH automatically.
-VIRTENV_DIR = os.path.join(ROOT_DIR, 'pyenv')
+VIRTENV_DIR = os.environ.get('VIRTENV_DIR', os.path.join(ROOT_DIR, 'pyenv'))
 BASE_DIR = os.path.join(ROOT_DIR, 'app')
 DATA_DIR = os.path.join(BASE_DIR, 'data')
-PUBLIC_DIR = os.path.join(BASE_DIR, 'public')
+PUBLIC_DIR = os.environ.get('PUBLIC_DIR', os.path.join(BASE_DIR, 'public'))
 
 ENV = os.environ.get('ENV', 'production')
 
@@ -27,23 +57,24 @@ ENV = os.environ.get('ENV', 'production')
 # CORE             #
 ####################
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = bool(os.environ.get('DEBUG', True if ENV == 'dev' else False))
+TEMPLATE_DEBUG = bool(os.environ.get('TEMPLATE_DEBUG'), True if ENV == 'dev' else False)
 
 # People who get code error notifications.
 # In the format (('Full Name', 'email@example.com'), ('Full Name', 'anotheremail@example.com'))
-ADMINS = (
-    #('Admin', 'admin@DOMAIN.com')
-)
+# To specify with environment var, set it like this:
+# ADMINS="admin1,admin1@domain.com;admin2,admin2@domain.com"
+ADMINS = [l.split(',') for l in os.environ.get('ADMINS', '').split(';')]
 
 # Tuple of IP addresses, as strings, that:
 #   * See debug comments, when DEBUG is true
 #   * Receive x-headers
-INTERNAL_IPS = ('127.0.0.1')
+INTERNAL_IPS = os.environ.get('INTERNAL_IPS', '127.0.0.1').split(' ')
 
 # Hosts/domain names that are valid for this site.
 # "*" matches anything, ".example.com" matches example.com and all subdomains
-#ALLOWED_HOSTS = ['DOMAIN.com']
+# For dev environment, this is set to all hosts.
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(' ')
 
 # Local time zone for this installation. All choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name (although not all
@@ -80,18 +111,18 @@ DATABASES = {}
 # The default is to use the SMTP backend.
 # Third-party backends can be specified by providing a Python path
 # to a module that defines an EmailBackend class.
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 
 # Host for sending email.
-EMAIL_HOST = 'localhost'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
 
 # Port for sending email.
-EMAIL_PORT = 25
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 25))
 
 # Optional SMTP authentication information for EMAIL_HOST.
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS', False))
 
 # List of strings representing installed apps.
 
@@ -372,3 +403,5 @@ if ENV == 'dev':
 
     DEBUG = TEMPLATE_DEBUG = True
     TEMPLATE_STRING_IF_INVALID = '<VAR_NONEXISTANT>'
+
+    ALLOWED_HOSTS = ['*']

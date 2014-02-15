@@ -47,6 +47,11 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pa
 # The virtual environment path. This is used in wsgi.py to put the virtual env
 # on the PYTHONPATH automatically.
 VIRTENV_DIR = os.environ.get('VIRTENV_DIR', os.path.join(ROOT_DIR, 'pyenv'))
+# The path to the site packages used by the virtualenv.
+# Note that this is relative to VIRTENV_DIR,
+# so it might be "lib/python2.7/site-packages".
+VIRTENV_PACKAGE_DIR = "__VIRTENV_PACKAGE_DIR__"
+
 BASE_DIR = os.path.join(ROOT_DIR, 'app')
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 PUBLIC_DIR = os.environ.get('PUBLIC_DIR', os.path.join(BASE_DIR, 'public'))
@@ -58,7 +63,7 @@ ENV = os.environ.get('ENV', 'production')
 ####################
 
 DEBUG = bool(os.environ.get('DEBUG', True if ENV == 'dev' else False))
-TEMPLATE_DEBUG = bool(os.environ.get('TEMPLATE_DEBUG'), True if ENV == 'dev' else False)
+TEMPLATE_DEBUG = bool(os.environ.get('TEMPLATE_DEBUG', True if ENV == 'dev' else False))
 
 # People who get code error notifications.
 # In the format (('Full Name', 'email@example.com'), ('Full Name', 'anotheremail@example.com'))

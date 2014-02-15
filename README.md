@@ -8,7 +8,10 @@ going right away, and saves your precious time by automating tedious tasks.
 The template used provides a setup based on current best practices, and makes
 starting a new project a breeze.
 
-Django-kickstart is under the BSD (3-clause) license.
+After running django-kickstart, you will have a functional django setup,
+with bower packages fetched, all relevant settings configured, and a
+development sqlite database ready to use.
+
 
 Quickstart:
 -----------
@@ -34,18 +37,33 @@ Features:
 * Good directory structure
 * Django setup with environment variables
 
-* Auto-create a git repo and do an intial commit.
+* Auto-create a git repo and do an intial commit
+* South for schema management
 
 
-Authors:
---------
+Directory Structure
+-------------------
 
-Suggestions and contributions are very welcome!
+app/ - the django project
+  apps/ - containts your custom django apps
+  data/
+    db/ - contains development sqlite databases
+    fixtures/ - contains database fixtures
+    lib/ - place to put external, contributed django apps or python modules that are not available from PyPi
+    public/ - only this dir needs to be publicly accessible
+      media/ - Uploaded media
+      static/ - static files
+    requirements/ - contains package requirements for pip, separated by environment
 
-* Christoph Herzog - http://theduke.at - chris@theduke.at
+bin/ - various (non-django/python) scripts (bash,...) related to the project
+conf/ - Config files or templated you need, for example apache virtual host or other server configs
+docs/ - documentation
+pyenv/ - A custom virtualenv for your project. This will be automatically
+         created, and all dependencies will be downloaded
 
-About:
-------
+
+What and why:
+-------------
 
 *  Modern and advanced CSS development with a setup for SASS, Compass, and
    optionally Bootstrap (the Bootstrap SASS port).
@@ -91,6 +109,20 @@ About:
 
 * Sample configuration files for other applications, like an Apache2 virtual
    host.
+
+
+License:
+--------
+
+Django-kickstart is under the BSD (3-clause) license.
+
+
+Authors:
+--------
+
+Suggestions and contributions are very welcome!
+
+* Christoph Herzog - http://theduke.at - chris@theduke.at
 
 
 Behind the scenes:
@@ -148,7 +180,7 @@ Updating bootstrap-sass
 -----------------------
 
 After updating the bootstrap-sass GEM, you need to copy the
-javascript and font assets.
+javascript and font assets!
 
 cd to root (dir with this readme file in it)
 cp -r $(bundle show bootstrap-sass)/vendor/assets/fonts/* app/apps/{{ project_name }}/static/fonts/

@@ -17,6 +17,7 @@ Quickstart:
 -----------
 
 `pip install django-kickstart`
+
 `django-kickstart mynewproject [--domain="mynewdomain.com"]`
 
 (type `django-kickstart -h` for all options)
@@ -45,19 +46,31 @@ Directory Structure
 -------------------
 
 app/ - the django project
+
   apps/ - containts your custom django apps
+
   data/
+
     db/ - contains development sqlite databases
+
     fixtures/ - contains database fixtures
+
     lib/ - place to put external, contributed django apps or python modules that are not available from PyPi
+
     public/ - only this dir needs to be publicly accessible
+
       media/ - Uploaded media
+
       static/ - static files
+
     requirements/ - contains package requirements for pip, separated by environment
 
 bin/ - various (non-django/python) scripts (bash,...) related to the project
+
 conf/ - Config files or templated you need, for example apache virtual host or other server configs
+
 docs/ - documentation
+
 pyenv/ - A custom virtualenv for your project. This will be automatically
          created, and all dependencies will be downloaded
 
@@ -115,6 +128,7 @@ License:
 --------
 
 Django-kickstart is under the BSD (3-clause) license.
+See LICENSE.txt
 
 
 Authors:

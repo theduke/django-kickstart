@@ -12,8 +12,6 @@ pyenv
 # Django specific.
 
 # Ignore sqlite db directory, since those are only used in development.
-data/db/*
-!data/db/.gitkeep
+app/data/db/*
+!app/data/db/.gitkeep
 
-# Ignore local settings file.
-apps/{{ project_name }}/settings/local.py

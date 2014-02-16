@@ -137,6 +137,11 @@ class Cli(object):
                 print("Unsupported options for --vcs: '{v}'".format(v=vcs))
                 return False
 
+        # Check for bower.
+        if not which('bower'):
+            print("bower was not found on your path! Ensure that bower is installed (npm install -g bower).")
+            return False
+
         return True
 
 

@@ -12,7 +12,7 @@ After running django-kickstart, you will have a functional django setup with it'
 **own virtualenv** preconfigured, with bower packages fetched and **jQuery, modernizr**,
 and some **IE8 polyfills** ready and included in the base.html template,
 **SASS with Compass and Twitter Bootstrap** (SASS port) ready,
- all relevant settings configured, and a **development sqlite database ready to use**.
+ all relevant settings configured (including **django-allauth**), and a **development sqlite database ready to use**.
 
 
 Quickstart:

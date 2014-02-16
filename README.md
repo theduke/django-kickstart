@@ -19,7 +19,7 @@ Quickstart:
 -----------
 
 `pip install django-kickstart
-django-kickstart mynewproject [--domain="mynewdomain.com"]`
+django-kickstart mynewproject`
 
 `cd mynewproject/app
 export ENV=dev

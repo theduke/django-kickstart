@@ -234,7 +234,7 @@ class Cli(object):
         self.create_project(args.name)
 
         # Create virtualenv.
-        if os.path.isdir(venv):
+        if os.path.isdir(venv) and not os.path.isfile(os.path.join(venv, '.gitkeep')):
             print("Using virtual env " + venv)
         else:
             print("Creating new custom virtualenv...")

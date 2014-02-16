@@ -19,3 +19,6 @@ var/
 .installed.cfg
 *.egg
 
+
+!django_kickstart/template/app/lib
+

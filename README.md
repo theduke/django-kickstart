@@ -5,12 +5,14 @@ This tool helps you to kickstart your new django project,
 by providing a better, more comprehensive setup that allows you to get
 going right away, and saves your precious time by automating tedious tasks.
 
-The template used provides a setup based on current best practices, and makes
+The template used provides a setup **based on current best practices**, and makes
 starting a new project a breeze.
 
-After running django-kickstart, you will have a functional django setup,
-with bower packages fetched, all relevant settings configured, and a
-development sqlite database ready to use.
+After running django-kickstart, you will have a functional django setup with it's
+**own virtualenv** preconfigured, with bower packages fetched and **jQuery, modernizr**,
+and some **IE8 polyfills** ready and included in the base.html template,
+**SASS with Compass and Twitter Bootstrap** (SASS port) ready,
+ all relevant settings configured, and a **development sqlite database ready to use**.
 
 
 Quickstart:

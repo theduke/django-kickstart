@@ -18,15 +18,15 @@ and some **IE8 polyfills** ready and included in the base.html template,
 Quickstart:
 -----------
 
-`pip install django-kickstart
+`pip install django-kickstart`
 
-django-kickstart mynewproject`
+`django-kickstart mynewproject`
 
-`cd mynewproject/app
+`cd mynewproject/app`
 
-export ENV=dev
+`export ENV=dev`
 
-./manage.py runserver`
+`./manage.py runserver`
 
 Note that for manage.py to work, you need to set the environment variable ENV
 to dev.

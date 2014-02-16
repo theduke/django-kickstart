@@ -485,10 +485,15 @@ if ENV == 'dev':
                 'class': 'logging.FileHandler',
                 'filename': os.path.join(DATA_DIR, 'logs', 'debug.log'),
             },
+            'console':{
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            },
         },
         'loggers': {
             'django': {
-                'handlers': ['file'],
+                'handlers': ['file', 'console'],
                 'level': 'DEBUG',
                 'propagate': True,
             },

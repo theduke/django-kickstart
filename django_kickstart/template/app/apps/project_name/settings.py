@@ -389,7 +389,7 @@ PIPELINE_JS = {
     'base': {
         'source_filenames': (
             'modernizr/modernizr.js',
-            'jquery/jquery.js',
+            'jquery/dist/jquery.js',
             'js/bootstrap.js',
             'js/base.js',
         ),

@@ -326,6 +326,39 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
+###########
+# Logging #
+###########
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file_requests': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(DATA_DIR, 'logs', 'requests.log'),
+        },
+        'file_security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(DATA_DIR, 'logs', 'security.log')
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['file_requests'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['file_security'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 
 ################
 # APP SPECIFIC #
@@ -442,3 +475,22 @@ if ENV == 'dev':
     TEMPLATE_STRING_IF_INVALID = '<VAR_NONEXISTANT>'
 
     ALLOWED_HOSTS = ['*']
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': os.path.join(DATA_DIR, 'logs', 'debug.log'),
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }

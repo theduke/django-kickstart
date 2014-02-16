@@ -16,9 +16,15 @@ development sqlite database ready to use.
 Quickstart:
 -----------
 
-`pip install django-kickstart`
+`pip install django-kickstart
+django-kickstart mynewproject [--domain="mynewdomain.com"]`
 
-`django-kickstart mynewproject [--domain="mynewdomain.com"]`
+`cd mynewproject/app
+export ENV=dev
+./manage.py runserver`
+
+Note that for manage.py to work, you need to set the environment variable ENV
+to dev.
 
 (type `django-kickstart -h` for all options)
 

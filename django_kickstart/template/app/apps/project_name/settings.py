@@ -476,6 +476,9 @@ if ENV == 'dev':
 
     ALLOWED_HOSTS = ['*']
 
+    # In development,  just print emails to console instead of sending them.
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,

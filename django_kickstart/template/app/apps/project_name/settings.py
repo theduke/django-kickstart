@@ -315,7 +315,8 @@ FIXTURE_DIRS = (
 ###############
 
 # A list of locations of additional static files
-STATICFILES_DIRS = ()
+STATICFILES_DIRS = (
+)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -337,7 +338,7 @@ SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Bower settings.
-BOWER_COMPONENTS_ROOT = os.path.join(PUBLIC_DIR, 'static')
+BOWER_COMPONENTS_ROOT = DATA_DIR
 BOWER_INSTALLED_APPS = (
     'jquery',
     'modernizr',
@@ -361,16 +362,47 @@ PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 
 PIPELINE_CSS = {
-    'base': {
+    'screen': {
         'source_filenames': (
+            'css/screen.css',
         ),
-        'output_filename': '',
+        'output_filename': 'css/base.css',
         'extra_content': (),
-    }
+    },
+    'ie': {
+        'source_filenames': (
+            'css/ie.css',
+        ),
+        'output_filename': 'css/ie.css',
+        'extra_content': (),
+    },
+    'print': {
+        'source_filenames': (
+            'css/print.css',
+        ),
+        'output_filename': 'css/print.css',
+        'extra_content': (),
+    },
 }
 
 PIPELINE_JS = {
-
+    'base': {
+        'source_filenames': (
+            'modernizr/modernizr.js',
+            'jquery/jquery.js',
+            'js/bootstrap.js',
+            'js/base.js',
+        ),
+        'output_filename': 'js/base.js',
+    },
+    'iepolyfills': {
+        'source_filenames': (
+            'html5shiv/dist/html5shiv.js ',
+            'respond/dest/respond.src.js',
+            'selectivizr/selectivizr.js',
+        ),
+        'output_filename': 'js/ie_poly.js'
+    }
 }
 
 

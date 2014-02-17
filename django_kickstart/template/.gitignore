@@ -18,3 +18,7 @@ app/data/db/*
 app/data/logs/*
 !app/data/logs/.gitkeep
 
+# Ignore media dir.
+app/public/media/*
+!app/public/media/.gitkeep
+

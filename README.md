@@ -1,6 +1,8 @@
 DJANGO-KICKSTART
 ================
 
+Version: 0.1.1 (06.12.2014)
+
 This tool helps you to kickstart your new django project,
 by providing a better, more comprehensive setup that allows you to get
 going right away, and saves your precious time by automating tedious tasks.
@@ -32,6 +34,8 @@ Quickstart:
 Note that for manage.py to work, you need to set the environment variable ENV
 to dev.
 
+Do not create new virtualenv: `--no-venv`
+Do not use bower: `--no-bower`
 (type `django-kickstart -h` for all options)
 
 

@@ -3,3 +3,6 @@ Changelog
 
 0.1:
     - Started development
+0.1.1 (06.03.2014):
+	- Fixed issue with logging setup (missing formatter).
+	- Added --no-venv and --no-bower options to omit setting up bower.

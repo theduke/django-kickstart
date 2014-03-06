@@ -5,8 +5,6 @@ import re
 import subprocess
 import shutil
 
-import virtualenv
-
 TEMPLATE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'template')
 
 def which(program):
@@ -69,10 +67,12 @@ class Cli(object):
         parser = argparse.ArgumentParser(description='Kickstart a Django project.')
         parser.add_argument('--vcs', default='git', help="Set up a version control repository. Supported values: git|none")
         parser.add_argument('--virtualenv', help="Location for python virtualenv. If it already exists, the existing one will be used. Otherwise, a new one will be created.")
+        parser.add_argument('--no-venv', action="store_true", help="Do not create a new virtual env, and not use an existing one. The system default will be used.")
+        parser.add_argument('--no-db', action="store_true", help="Do not create a develoopment sqlite database.")
+        parser.add_argument('--no-bower', action="store_true", help="Do not set up bower.")
         parser.add_argument('--verbose', '-v', action='store_true', help="More verbose output.")
         parser.add_argument('--domain', help="Domain that will be used in various parts of the setup.")
         parser.add_argument('--path', help="Parent directory for the new project. Defaults to current working dir.")
-        parser.add_argument('--no-db', action="store_true", help="Do not create a develoopment sqlite database.")
         parser.add_argument('--force', action="store_true", help="Delete old project if present.")
         parser.add_argument('name', help="Name of the new project.")
 
@@ -121,8 +121,12 @@ class Cli(object):
             return False
 
         # Check virtualenv.
-        if not which('virtualenv'):
-            print("virtualenv was not found on your path! Please ensure that it is installed by running 'pip install virtualenv'.")
+        if not args.no_venv:
+            try:
+                import virtualenv
+            except:
+                print("virtualenv was not found on your path! Please ensure that it is installed by running 'pip install virtualenv' OR disable virtualenv creation by specifying --no-venv.")
+                return False
 
         # Check vcs.
         vcs = args.vcs
@@ -138,9 +142,10 @@ class Cli(object):
                 return False
 
         # Check for bower.
-        if not which('bower'):
-            print("bower was not found on your path! Ensure that bower is installed (npm install -g bower).")
-            return False
+        if not args.no_bower:
+            if not which('bower'):
+                print("bower was not found on your path! Ensure that bower is installed (npm install -g bower).")
+                return False
 
         return True
 
@@ -162,26 +167,32 @@ class Cli(object):
         os.remove(os.path.join(path, '.gitkeep'))
         os.rmdir(path)
 
+        import virtualenv
+
         virtualenv.create_environment(path,
             site_packages=True,
             unzip_setuptools=True,
         )
 
 
-    def update_sitepackage_setting(self, virtualenv_path, settings_path):
-        # We need to update the VIRTENV_PACKAGE_DIR setting in settings.py
-        # since it is needed for manage.py and wsgi.py.
+    def update_sitepackage_settings(self, virtualenv_path, settings_path, args):
 
-         # Determine virtualenv site packages location.
-        site_packages_dir = subprocess.check_output([
-            os.path.join(virtualenv_path, 'bin', 'python'),
-            '-c',
-            'from distutils.sysconfig import get_python_lib; print(get_python_lib())'
-        ])
-        site_packages_dir = site_packages_dir.replace("\n", "").replace(virtualenv_path + '/', "")
+        if not args.no_venv:
+            # We need to update the VIRTENV_PACKAGE_DIR setting in settings.py
+            # since it is needed for manage.py and wsgi.py.
 
-        # Now update the VIRTENV_PACKAGE_DIR setting.
-        file_replace(settings_path, ('__VIRTENV_PACKAGE_DIR__', site_packages_dir))
+            # Obviously skipped when no virtenv is created or used.
+
+            # Determine virtualenv site packages location.
+            site_packages_dir = subprocess.check_output([
+                os.path.join(virtualenv_path, 'bin', 'python'),
+                '-c',
+                'from distutils.sysconfig import get_python_lib; print(get_python_lib())'
+            ])
+            site_packages_dir = site_packages_dir.replace("\n", "").replace(virtualenv_path + '/', "")
+
+            # Now update the VIRTENV_PACKAGE_DIR setting.
+            file_replace(settings_path, ('__VIRTENV_PACKAGE_DIR__', site_packages_dir))
 
 
     def install_python_requirements(self, pip, requirements_file):
@@ -234,13 +245,14 @@ class Cli(object):
         self.create_project(args.name)
 
         # Create virtualenv.
-        if os.path.isdir(venv) and not os.path.isfile(os.path.join(venv, '.gitkeep')):
-            print("Using virtual env " + venv)
-        else:
-            print("Creating new custom virtualenv...")
-            self.create_virtualenv(venv, settings_path)
+        if not args.no_venv:
+            if os.path.isdir(venv) and not os.path.isfile(os.path.join(venv, '.gitkeep')):
+                print("Using virtual env " + venv)
+            else:
+                print("Creating new custom virtualenv...")
+                self.create_virtualenv(venv, settings_path)
 
-        self.update_sitepackage_setting(venv, settings_path)
+        self.update_sitepackage_settings(venv, settings_path, args)
 
         # Installing requirements.
         print('Installing python dependencies into virtualenv...')
@@ -252,8 +264,9 @@ class Cli(object):
             self.create_db(django_manage, env)
 
         # Fetch bower packages.
-        print("Fetching bower packages...")
-        self.fetch_bower_packages(django_manage, env)
+        if not args.no_bower:
+            print("Fetching bower packages...")
+            self.fetch_bower_packages(django_manage, env)
 
         # Create vcs repository.
         if args.vcs == 'git':

@@ -37,7 +37,8 @@ def file_replace(path, patterns):
 
     content = open(path).read()
 
-    if type(patterns[0] == str):
+    # If only one pattern is given, change structure accordingly.
+    if type(patterns[0]) == str:
         patterns = (patterns,)
 
     for pattern in patterns:
@@ -127,6 +128,10 @@ class Cli(object):
             except:
                 print("virtualenv was not found on your path! Please ensure that it is installed by running 'pip install virtualenv' OR disable virtualenv creation by specifying --no-venv.")
                 return False
+        else:
+            # Check that pip is on the path.
+            if not which('pip'):
+                print("Pip was not found on your path! Install it first.")
 
         # Check vcs.
         vcs = args.vcs
@@ -192,7 +197,15 @@ class Cli(object):
             site_packages_dir = site_packages_dir.replace("\n", "").replace(virtualenv_path + '/', "")
 
             # Now update the VIRTENV_PACKAGE_DIR setting.
-            file_replace(settings_path, ('__VIRTENV_PACKAGE_DIR__', site_packages_dir))
+            file_replace(settings_path, [('__VIRTENV_PACKAGE_DIR__', site_packages_dir)])
+
+
+        if args.no_bower:
+            # Remove essential bower setup from the settings.py since it's not used.
+            file_replace(settings_path, [
+                ("'djangobower.finders.BowerFinder',\n", ""),
+                ("'djangobower',\n", ""),
+            ])
 
 
     def install_python_requirements(self, pip, requirements_file):
@@ -230,7 +243,7 @@ class Cli(object):
     def create(self, args):
         # Define all the paths.
         venv = args.virtualenv if args.virtualenv else os.path.join(args.path, 'pyenv')
-        pip_bin = os.path.join(venv, 'bin', 'pip')
+        pip_bin = os.path.join(venv, 'bin', 'pip') if not args.no_venv else which("pip")
         app_path = os.path.join(args.path, 'app')
         django_manage = os.path.join(app_path, 'manage.py')
         settings_path = os.path.join(app_path, 'apps', args.name, 'settings.py')
@@ -267,6 +280,7 @@ class Cli(object):
         if not args.no_bower:
             print("Fetching bower packages...")
             self.fetch_bower_packages(django_manage, env)
+
 
         # Create vcs repository.
         if args.vcs == 'git':

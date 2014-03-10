@@ -1,7 +1,7 @@
 DJANGO-KICKSTART
 ================
 
-Version: 0.1.1 (06.12.2014)
+Version: 0.1.3 (17.03.2014)
 
 This tool helps you to kickstart your new django project,
 by providing a better, more comprehensive setup that allows you to get

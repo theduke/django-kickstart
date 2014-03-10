@@ -8,4 +8,7 @@ Changelog
 	- Added --no-venv and --no-bower options to omit setting up bower.
 0.1.3 (17.03.2014):
 	- Fixed PyPi Package issues with bin script.
+0.1.4 (17.03.2014):
+	- Improved logging setup
+	- Fixed (critical) issue: pyenv/.gitkeep missing from repo
 

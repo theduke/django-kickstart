@@ -1,7 +1,7 @@
 DJANGO-KICKSTART
 ================
 
-Version: 0.1.3 (17.03.2014)
+Version: 0.1.4 (17.03.2014)
 
 This tool helps you to kickstart your new django project,
 by providing a better, more comprehensive setup that allows you to get
@@ -15,7 +15,7 @@ After running django-kickstart, you will have a functional django setup with it'
 and some **IE8 polyfills** ready and included in the base.html template,
 **SASS with Compass and Twitter Bootstrap** (SASS port) ready,
  all relevant settings configured (including **django-allauth**), a **development sqlite database ready to use**
- and event a **git repository initialied**, with .gitignore, and initial base commit.
+ and even a **git repository initialized**, with a good python + django .gitignore, and initial base commit.
 
 
 Quickstart:

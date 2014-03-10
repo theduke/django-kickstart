@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 
 # Ignore pyenv.
-pyenv
+pyenv/*
 !pyenv/.gitkeep
 
 # Ignore sass cache.

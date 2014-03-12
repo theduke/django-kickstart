@@ -29,3 +29,6 @@ django-allauth
 # Form helpers.
 # https://github.com/maraujop/django-crispy-forms
 django-crispy-forms
+
+# Frontend package management.
+django-bower

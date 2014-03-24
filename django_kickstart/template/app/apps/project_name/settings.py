@@ -39,8 +39,16 @@ EMAIL_USE_TLS
 """
 
 import os
+import warnings
+
+# Disable naive datetime warnings for naive datetime in iPython.
+#import exceptions
+#warnings.filterwarnings("ignore", category=exceptions.RuntimeWarning, module='django.db.backends.sqlite3.base', lineno=53)
+#warnings.filterwarnings("ignore", category=exceptions.RuntimeWarning, module='django.db.models.fields', lineno=903)
 
 PROJECT_NAME = "{{ project_name }}"
+# Main host/domain name for this project.
+PROJECT_HOST = "{{ project_name }}.com"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
@@ -508,4 +516,3 @@ if ENV == 'dev':
             'propagate': True,
         },
     }
-

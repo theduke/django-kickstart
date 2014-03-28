@@ -344,7 +344,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-    'verbose': {
+        'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
         'simple': {
@@ -510,6 +510,7 @@ if ENV == 'dev':
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
+
     }
     LOGGING['loggers'] = {
         'django': {
@@ -517,4 +518,9 @@ if ENV == 'dev':
             'level': 'DEBUG',
             'propagate': True,
         },
+        'django.db': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False
+        }
     }

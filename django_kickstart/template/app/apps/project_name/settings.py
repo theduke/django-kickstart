@@ -147,6 +147,8 @@ INSTALLED_APPS = (
 
     # CONTRIB apps.
 
+    'django_baseline',
+
     # Asset manager
     'pipeline',
 

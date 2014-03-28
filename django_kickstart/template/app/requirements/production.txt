@@ -32,3 +32,6 @@ django-crispy-forms
 
 # Frontend package management.
 django-bower
+
+# Shared django utilities that make life easier.
+django-baseline >= 0.2.1

@@ -13,5 +13,7 @@ Changelog
 	- Fixed (critical) issue: pyenv/.gitkeep missing from repo
 0.1.5 (12.03.2014):
   - Fixed missing pip dependency djangobower
-
-
+0.1.6 (28.03.2014):
+  - Added missing django-baseline dependency.
+  - Settings for disabling DB warnings in iPython.
+  - Improved logging in DEV env: only show DB logs >= INFO.

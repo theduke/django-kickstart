@@ -382,6 +382,15 @@ LOGGING = {
 # APP SPECIFIC #
 ################
 
+# Default accepted input formats for Forms.
+# Use them like this on a form field: 
+# form django_baseline import get_config
+# date = forms.DateField(input_formats=get_config("DATE_INPUT_FORMATS"))
+
+DATE_INPUT_FORMATS = ["%d.%m.%Y", "%Y-%m-%d"]
+DATETIME_INPUT_FORMATS = ["%d.%m.%Y %H:%M"]
+
+
 # Django Site framework settings.
 SITE_ID = 1
 

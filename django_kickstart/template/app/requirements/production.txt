@@ -1,6 +1,9 @@
 # Load compiled requirements.
 -r compiled.txt
 
+# Image processing.
+Pillow
+
 # Django.
 Django>=1.6
 

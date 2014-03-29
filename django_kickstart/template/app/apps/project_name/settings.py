@@ -226,7 +226,7 @@ TEMPLATE_STRING_IF_INVALID = ''
 #DEFAULT_FROM_EMAIL = 'no-reply@DOMAIN.com'
 
 # Whether to append trailing slashes to URLs.
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # Whether to prepend the "www." subdomain to URLs that don't have it.
 PREPEND_WWW = False

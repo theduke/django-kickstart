@@ -4,6 +4,9 @@
 # Image processing.
 Pillow
 
+# Timezone related queries.
+pytz
+
 # Django.
 Django>=1.6
 
@@ -38,3 +41,5 @@ django-bower
 
 # Shared django utilities that make life easier.
 django-baseline >= 0.2.1
+
+

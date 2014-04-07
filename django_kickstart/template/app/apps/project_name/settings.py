@@ -120,6 +120,8 @@ MANAGERS = ADMINS
 # Database connection info. If left empty, will default to the dummy backend.
 DATABASES = {}
 
+EMAIL_SUBJECT_PREFIX = "[{n}] ".format(n=SITE_NAME)
+
 # The email backend to use. For possible shortcuts see django.core.mail.
 # The default is to use the SMTP backend.
 # Third-party backends can be specified by providing a Python path
